@@ -4,8 +4,8 @@ import os
 def check_folder():
     if len(sys.argv) > 1:
         if os.path.isdir(sys.argv[1]) == True:
-            dir = sys.argv[1]
-            return dir
+            folder = sys.argv[1]
+            return folder
         else:
             print("Нет такой директории")    
     else:
