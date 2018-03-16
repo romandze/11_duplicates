@@ -1,7 +1,18 @@
-# Anti-Duplicator
+# Поиск дубликатов файлов
 
-[TODO. There will be project description]
+Данный скрипт позволяет найти дубликаты файлов в указаной директории.
+Дубликатами считаются файлы с одинаковым именем и размером.
 
-# Project Goals
+# Как запустить
 
-The code is written for educational purposes. Training course for web-developers - [DEVMAN.org](https://devman.org)
+Скрипт требует для своей работы установленного интерпретатора Python версии 3.5
+
+Запуск на Linux:
+
+```bash
+python duplicates.py <folder> # может понадобиться вызов python3 вместо python, зависит от настроек операционной системы
+```
+
+# Цели проекта
+
+Код создан в учебных целях. В рамках учебного курса по веб-разработке ― [DEVMAN.org](https://devman.org)
