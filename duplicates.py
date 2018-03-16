@@ -16,25 +16,27 @@ def get_file_size(filename):
     filesize = os.path.getsize(filename)
     return filesize
 
-def get_files_in_folder(directory):
-    finded_files = []
-    for root, dirs, files in os.walk(directory):
+def find_duplicates(directory):
+    duplicates = {}
+    for dirs, subdirs, files in os.walk(directory):
         for filename in files:
-            path = os.path.join(root, filename)
-            finded_files.append({"path": path, "name": filename, "size": get_file_size(path)})
-    return finded_files
-
-def get_duplicates():
-    duplicates = []
-    all_files = get_files_in_folder(check_folder())
-    for i in range(len(all_files)-1):
-        for j in range(i+1, len(all_files)):
-            if (all_files[i]['name'] == all_files[j]['name']) and (all_files[i]['size'] == all_files[j]['size']):
-                duplicates.append(
-                    {'name': all_files[i]['name'], 'path': {all_files[i]['path'], all_files[j]['path']}})
+            path = os.path.join(dirs, filename)
+            size = get_file_size(path)
+            dup = duplicates.get(size)
+            if dup:
+                try:
+                    duplicates[size][filename].append(path)
+                except KeyError:
+                    duplicates[size][filename] = [path]
+            else:
+                duplicates[size] = {filename: [path]}
     return duplicates
 
 if __name__ == '__main__':
 
-    print(get_duplicates())
+    duplicates = find_duplicates(check_folder())
+    for items in duplicates:
+        for file in duplicates[items]:
+            if len(duplicates[items][file]) > 1:
+                print("Нашёл файлы с одинаковым размером и именем: {}".format(', '.join(duplicates[items][file])))
 
